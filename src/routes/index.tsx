@@ -9,7 +9,7 @@ import pointing from "@/assets/eddie-pointing.jpg";
 import {
   Handshake, Network, Globe2, Crown, Target, TrendingUp,
   Lightbulb, GraduationCap, Briefcase, Eye, BookOpen, Plane,
-  Linkedin, Instagram, Facebook, Twitter, Mail, MapPin, ArrowRight,
+  Linkedin, Instagram, Facebook, Twitter, Mail, MapPin, ArrowRight, Play,
 } from "lucide-react";
 
 export const Route = createFileRoute("/")({
@@ -176,6 +176,43 @@ function Hero() {
   );
 }
 
+function PortraitBand() {
+  return (
+    <section className="relative w-full overflow-hidden bg-onyx">
+      <div className="relative h-[70vh] min-h-[520px] w-full">
+        <img src={portrait} alt="Dr. Eddie Mutale portrait" className="h-full w-full object-cover object-top" />
+        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/40 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/10 to-background/30" />
+        <div className="absolute inset-0 bg-radial-gold opacity-30" />
+
+        <div className="relative z-10 mx-auto flex h-full max-w-7xl items-center px-6 lg:px-12">
+          <div className="max-w-2xl animate-fade-up">
+            <div className="mb-6 flex items-center gap-4">
+              <span className="h-px w-16 bg-gold" />
+              <span className="text-[10px] tracking-luxury uppercase text-gold">The Man Behind The Deals</span>
+            </div>
+            <h2 className="font-display text-5xl font-light leading-[1.05] md:text-7xl lg:text-8xl">
+              Presence.<br />
+              <span className="text-gradient-gold italic">Precision.</span><br />
+              Power.
+            </h2>
+            <p className="mt-8 max-w-lg text-base leading-relaxed text-muted-foreground md:text-lg">
+              An executive presence cultivated through decades of strategic engagement —
+              where every word, every gesture, every silence carries intent.
+            </p>
+          </div>
+        </div>
+
+        <div className="absolute bottom-8 right-8 hidden lg:block">
+          <div className="glass-dark px-6 py-4 max-w-sm">
+            <p className="font-display text-base italic text-gold">"Opportunities do not change lives. Executed strategies do."</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function About() {
   return (
     <section id="about" className="relative bg-gradient-dark py-32 lg:py-48">
@@ -184,7 +221,7 @@ function About() {
           <div className="lg:col-span-5">
             <div className="sticky top-32">
               <div className="relative overflow-hidden">
-                <img src={portrait} alt="Dr. Eddie Mutale" className="w-full object-cover" loading="lazy" />
+                <img src={speaking} alt="Dr. Eddie Mutale" className="w-full object-cover" loading="lazy" />
                 <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent" />
               </div>
               <div className="mt-6 hairline-border p-6">
@@ -231,6 +268,55 @@ function About() {
                   <div className="text-xs tracking-executive uppercase text-gold">{p}</div>
                 </div>
               ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Showreel() {
+  return (
+    <section className="relative w-full overflow-hidden bg-background py-24 lg:py-32 grain">
+      <div className="mx-auto max-w-7xl px-6 lg:px-12">
+        <div className="mx-auto max-w-3xl text-center">
+          <div className="mb-6 flex items-center justify-center gap-4">
+            <span className="h-px w-12 bg-gold/40" />
+            <span className="text-[10px] tracking-luxury uppercase text-gold">In Motion</span>
+            <span className="h-px w-12 bg-gold/40" />
+          </div>
+          <h2 className="font-display text-4xl font-light leading-tight md:text-6xl">
+            The Deal Closer <span className="text-gradient-gold italic">in Motion</span>
+          </h2>
+          <p className="mt-6 text-muted-foreground">
+            Strategic engagements, keynote moments, and negotiation rooms — captured.
+          </p>
+        </div>
+      </div>
+
+      <div className="relative mt-16 w-full px-6 lg:px-12">
+        <div className="relative mx-auto aspect-video w-full max-w-7xl overflow-hidden hairline-border">
+          <img src={event} alt="Dr. Eddie Mutale showreel" className="h-full w-full object-cover animate-ken-burns" />
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-background/40" />
+          <div className="absolute inset-0 bg-radial-gold opacity-30" />
+
+          <button type="button" aria-label="Play showreel" className="group absolute inset-0 flex items-center justify-center">
+            <span className="absolute h-32 w-32 rounded-full border border-gold/40 animate-pulse-glow" />
+            <span className="absolute h-44 w-44 rounded-full border border-gold/20" />
+            <span className="relative flex h-20 w-20 items-center justify-center rounded-full bg-gold text-primary-foreground shadow-gold transition-transform duration-500 group-hover:scale-110">
+              <Play className="h-7 w-7 fill-current" strokeWidth={0} />
+            </span>
+          </button>
+
+          <div className="absolute bottom-6 left-6 right-6 flex items-end justify-between">
+            <div>
+              <div className="text-[10px] tracking-luxury uppercase text-gold">Featured Showreel</div>
+              <div className="mt-2 font-display text-xl italic text-foreground md:text-3xl">Moments. Movements. Mastery.</div>
+            </div>
+            <div className="hidden md:block text-right">
+              <div className="font-mono text-xs text-gold/70">04:32</div>
+              <div className="text-[10px] tracking-luxury uppercase text-muted-foreground">Runtime</div>
             </div>
           </div>
         </div>
@@ -323,49 +409,44 @@ function Author() {
   );
 }
 
+const dealPillars = [
+  { n: "01", title: "Psychology", desc: "Reading rooms before words are spoken." },
+  { n: "02", title: "Leverage", desc: "Knowing where the real power sits." },
+  { n: "03", title: "Timing", desc: "Acting precisely when momentum aligns." },
+  { n: "04", title: "Communication", desc: "Strategic clarity. Executive precision." },
+  { n: "05", title: "Confidence", desc: "Earned through repetition and mastery." },
+  { n: "06", title: "Execution", desc: "Where vision becomes signed reality." },
+];
+
 function Philosophy() {
   return (
     <section className="relative overflow-hidden py-32 lg:py-48 grain">
-      <div className="absolute inset-0 bg-radial-gold opacity-50" />
-      <div className="relative mx-auto max-w-5xl px-6 lg:px-12">
-        <SectionLabel num="04">Philosophy</SectionLabel>
-        <h2 className="font-display text-4xl font-light leading-tight md:text-6xl">
-          The <span className="text-gradient-gold italic">Deal Closer</span> Philosophy
-        </h2>
-
-        <div className="mt-16 grid gap-12 lg:grid-cols-12">
-          <div className="lg:col-span-5">
-            <p className="font-display text-2xl font-light italic leading-snug text-foreground md:text-3xl">
-              Most people do not fail because opportunities do not exist.
-            </p>
-            <p className="mt-6 text-muted-foreground">They fail because:</p>
-          </div>
-
-          <div className="lg:col-span-7 space-y-px bg-gold/15">
-            {[
-              "They cannot position properly",
-              "They cannot negotiate effectively",
-              "They cannot structure opportunities intelligently",
-              "They cannot build the right relationships",
-              "They cannot execute consistently",
-            ].map((item, i) => (
-              <div key={item} className="flex items-baseline gap-6 bg-background py-5 px-2">
-                <span className="font-mono text-xs text-gold/50">0{i + 1}</span>
-                <span className="text-base text-foreground md:text-lg">{item}</span>
-              </div>
-            ))}
-          </div>
+      <div className="absolute inset-0 bg-radial-gold opacity-40" />
+      <div className="relative mx-auto max-w-7xl px-6 lg:px-12">
+        <div className="mx-auto max-w-4xl text-center">
+          <SectionLabel num="04"><span className="mx-auto">The Philosophy</span></SectionLabel>
+          <div className="mx-auto mb-10 h-px w-24 bg-gradient-to-r from-transparent via-gold to-transparent" />
+          <p className="text-[11px] tracking-luxury uppercase text-gold">Closing Deals Is Not Luck</p>
+          <h2 className="mt-10 font-display text-4xl font-light leading-tight md:text-6xl lg:text-7xl">
+            The Six Pillars of <span className="text-gradient-gold italic">The Deal Closer</span>
+          </h2>
         </div>
 
-        <div className="mt-20 border-t border-gold/20 pt-12 text-center">
-          <p className="font-display text-3xl font-light italic text-foreground md:text-5xl">
-            Closing deals is not luck.
+        <div className="mt-20 grid gap-px bg-gold/15 border border-gold/15 sm:grid-cols-2 lg:grid-cols-3">
+          {dealPillars.map(({ n, title, desc }) => (
+            <div key={n} className="group relative bg-background p-10 lg:p-14 transition-all duration-500 hover:bg-card">
+              <span className="font-mono text-xs tracking-luxury text-gold/60">{n}</span>
+              <h3 className="mt-8 font-display text-4xl italic text-gradient-gold md:text-5xl">{title}</h3>
+              <div className="mt-4 h-px w-12 bg-gold/60 transition-all duration-500 group-hover:w-24" />
+              <p className="mt-6 text-base leading-relaxed text-muted-foreground">{desc}</p>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-20 text-center">
+          <p className="font-display text-3xl font-light text-foreground md:text-5xl">
+            This philosophy defines <span className="text-gradient-gold italic">Dr. Eddie Mutale.</span>
           </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-x-10 gap-y-4">
-            {["Psychology", "Leverage", "Timing", "Communication", "Confidence", "Execution"].map((w) => (
-              <span key={w} className="font-display text-xl italic text-gold md:text-2xl">{w}.</span>
-            ))}
-          </div>
         </div>
       </div>
     </section>
@@ -597,8 +678,10 @@ function Home() {
   return (
     <main className="bg-background text-foreground">
       <Hero />
+      <PortraitBand />
       <About />
       <Expertise />
+      <Showreel />
       <Author />
       <Philosophy />
       <Global />
