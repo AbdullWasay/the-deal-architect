@@ -323,49 +323,44 @@ function Author() {
   );
 }
 
+const dealPillars = [
+  { n: "01", title: "Psychology", desc: "Reading rooms before words are spoken." },
+  { n: "02", title: "Leverage", desc: "Knowing where the real power sits." },
+  { n: "03", title: "Timing", desc: "Acting precisely when momentum aligns." },
+  { n: "04", title: "Communication", desc: "Strategic clarity. Executive precision." },
+  { n: "05", title: "Confidence", desc: "Earned through repetition and mastery." },
+  { n: "06", title: "Execution", desc: "Where vision becomes signed reality." },
+];
+
 function Philosophy() {
   return (
     <section className="relative overflow-hidden py-32 lg:py-48 grain">
-      <div className="absolute inset-0 bg-radial-gold opacity-50" />
-      <div className="relative mx-auto max-w-5xl px-6 lg:px-12">
-        <SectionLabel num="04">Philosophy</SectionLabel>
-        <h2 className="font-display text-4xl font-light leading-tight md:text-6xl">
-          The <span className="text-gradient-gold italic">Deal Closer</span> Philosophy
-        </h2>
-
-        <div className="mt-16 grid gap-12 lg:grid-cols-12">
-          <div className="lg:col-span-5">
-            <p className="font-display text-2xl font-light italic leading-snug text-foreground md:text-3xl">
-              Most people do not fail because opportunities do not exist.
-            </p>
-            <p className="mt-6 text-muted-foreground">They fail because:</p>
-          </div>
-
-          <div className="lg:col-span-7 space-y-px bg-gold/15">
-            {[
-              "They cannot position properly",
-              "They cannot negotiate effectively",
-              "They cannot structure opportunities intelligently",
-              "They cannot build the right relationships",
-              "They cannot execute consistently",
-            ].map((item, i) => (
-              <div key={item} className="flex items-baseline gap-6 bg-background py-5 px-2">
-                <span className="font-mono text-xs text-gold/50">0{i + 1}</span>
-                <span className="text-base text-foreground md:text-lg">{item}</span>
-              </div>
-            ))}
-          </div>
+      <div className="absolute inset-0 bg-radial-gold opacity-40" />
+      <div className="relative mx-auto max-w-7xl px-6 lg:px-12">
+        <div className="mx-auto max-w-4xl text-center">
+          <SectionLabel num="04"><span className="mx-auto">The Philosophy</span></SectionLabel>
+          <div className="mx-auto mb-10 h-px w-24 bg-gradient-to-r from-transparent via-gold to-transparent" />
+          <p className="text-[11px] tracking-luxury uppercase text-gold">Closing Deals Is Not Luck</p>
+          <h2 className="mt-10 font-display text-4xl font-light leading-tight md:text-6xl lg:text-7xl">
+            The Six Pillars of <span className="text-gradient-gold italic">The Deal Closer</span>
+          </h2>
         </div>
 
-        <div className="mt-20 border-t border-gold/20 pt-12 text-center">
-          <p className="font-display text-3xl font-light italic text-foreground md:text-5xl">
-            Closing deals is not luck.
+        <div className="mt-20 grid gap-px bg-gold/15 border border-gold/15 sm:grid-cols-2 lg:grid-cols-3">
+          {dealPillars.map(({ n, title, desc }) => (
+            <div key={n} className="group relative bg-background p-10 lg:p-14 transition-all duration-500 hover:bg-card">
+              <span className="font-mono text-xs tracking-luxury text-gold/60">{n}</span>
+              <h3 className="mt-8 font-display text-4xl italic text-gradient-gold md:text-5xl">{title}</h3>
+              <div className="mt-4 h-px w-12 bg-gold/60 transition-all duration-500 group-hover:w-24" />
+              <p className="mt-6 text-base leading-relaxed text-muted-foreground">{desc}</p>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-20 text-center">
+          <p className="font-display text-3xl font-light text-foreground md:text-5xl">
+            This philosophy defines <span className="text-gradient-gold italic">Dr. Eddie Mutale.</span>
           </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-x-10 gap-y-4">
-            {["Psychology", "Leverage", "Timing", "Communication", "Confidence", "Execution"].map((w) => (
-              <span key={w} className="font-display text-xl italic text-gold md:text-2xl">{w}.</span>
-            ))}
-          </div>
         </div>
       </div>
     </section>
