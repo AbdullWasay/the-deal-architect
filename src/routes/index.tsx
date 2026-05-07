@@ -176,6 +176,43 @@ function Hero() {
   );
 }
 
+function PortraitBand() {
+  return (
+    <section className="relative w-full overflow-hidden bg-onyx">
+      <div className="relative h-[70vh] min-h-[520px] w-full">
+        <img src={portrait} alt="Dr. Eddie Mutale portrait" className="h-full w-full object-cover object-top" />
+        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/40 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/10 to-background/30" />
+        <div className="absolute inset-0 bg-radial-gold opacity-30" />
+
+        <div className="relative z-10 mx-auto flex h-full max-w-7xl items-center px-6 lg:px-12">
+          <div className="max-w-2xl animate-fade-up">
+            <div className="mb-6 flex items-center gap-4">
+              <span className="h-px w-16 bg-gold" />
+              <span className="text-[10px] tracking-luxury uppercase text-gold">The Man Behind The Deals</span>
+            </div>
+            <h2 className="font-display text-5xl font-light leading-[1.05] md:text-7xl lg:text-8xl">
+              Presence.<br />
+              <span className="text-gradient-gold italic">Precision.</span><br />
+              Power.
+            </h2>
+            <p className="mt-8 max-w-lg text-base leading-relaxed text-muted-foreground md:text-lg">
+              An executive presence cultivated through decades of strategic engagement —
+              where every word, every gesture, every silence carries intent.
+            </p>
+          </div>
+        </div>
+
+        <div className="absolute bottom-8 right-8 hidden lg:block">
+          <div className="glass-dark px-6 py-4 max-w-sm">
+            <p className="font-display text-base italic text-gold">"Opportunities do not change lives. Executed strategies do."</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function About() {
   return (
     <section id="about" className="relative bg-gradient-dark py-32 lg:py-48">
@@ -184,7 +221,7 @@ function About() {
           <div className="lg:col-span-5">
             <div className="sticky top-32">
               <div className="relative overflow-hidden">
-                <img src={portrait} alt="Dr. Eddie Mutale" className="w-full object-cover" loading="lazy" />
+                <img src={speaking} alt="Dr. Eddie Mutale" className="w-full object-cover" loading="lazy" />
                 <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent" />
               </div>
               <div className="mt-6 hairline-border p-6">
@@ -231,6 +268,55 @@ function About() {
                   <div className="text-xs tracking-executive uppercase text-gold">{p}</div>
                 </div>
               ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Showreel() {
+  return (
+    <section className="relative w-full overflow-hidden bg-background py-24 lg:py-32 grain">
+      <div className="mx-auto max-w-7xl px-6 lg:px-12">
+        <div className="mx-auto max-w-3xl text-center">
+          <div className="mb-6 flex items-center justify-center gap-4">
+            <span className="h-px w-12 bg-gold/40" />
+            <span className="text-[10px] tracking-luxury uppercase text-gold">In Motion</span>
+            <span className="h-px w-12 bg-gold/40" />
+          </div>
+          <h2 className="font-display text-4xl font-light leading-tight md:text-6xl">
+            The Deal Closer <span className="text-gradient-gold italic">in Motion</span>
+          </h2>
+          <p className="mt-6 text-muted-foreground">
+            Strategic engagements, keynote moments, and negotiation rooms — captured.
+          </p>
+        </div>
+      </div>
+
+      <div className="relative mt-16 w-full px-6 lg:px-12">
+        <div className="relative mx-auto aspect-video w-full max-w-7xl overflow-hidden hairline-border">
+          <img src={event} alt="Dr. Eddie Mutale showreel" className="h-full w-full object-cover animate-ken-burns" />
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-background/40" />
+          <div className="absolute inset-0 bg-radial-gold opacity-30" />
+
+          <button type="button" aria-label="Play showreel" className="group absolute inset-0 flex items-center justify-center">
+            <span className="absolute h-32 w-32 rounded-full border border-gold/40 animate-pulse-glow" />
+            <span className="absolute h-44 w-44 rounded-full border border-gold/20" />
+            <span className="relative flex h-20 w-20 items-center justify-center rounded-full bg-gold text-primary-foreground shadow-gold transition-transform duration-500 group-hover:scale-110">
+              <Play className="h-7 w-7 fill-current" strokeWidth={0} />
+            </span>
+          </button>
+
+          <div className="absolute bottom-6 left-6 right-6 flex items-end justify-between">
+            <div>
+              <div className="text-[10px] tracking-luxury uppercase text-gold">Featured Showreel</div>
+              <div className="mt-2 font-display text-xl italic text-foreground md:text-3xl">Moments. Movements. Mastery.</div>
+            </div>
+            <div className="hidden md:block text-right">
+              <div className="font-mono text-xs text-gold/70">04:32</div>
+              <div className="text-[10px] tracking-luxury uppercase text-muted-foreground">Runtime</div>
             </div>
           </div>
         </div>
