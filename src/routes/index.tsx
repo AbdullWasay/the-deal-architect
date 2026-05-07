@@ -678,8 +678,10 @@ function Home() {
   return (
     <main className="bg-background text-foreground">
       <Hero />
+      <PortraitBand />
       <About />
       <Expertise />
+      <Showreel />
       <Author />
       <Philosophy />
       <Global />
