@@ -9,6 +9,15 @@ import pointing from "@/assets/eddie-pointing.jpg";
 import footerPortraitOne from "@/assets/1983.jpg";
 import footerPortraitTwo from "@/assets/6641.jpg";
 import showreelVideo from "@/assets/5077.mp4";
+import moment632 from "@/assets/new-images/632.jpg";
+import moment2884 from "@/assets/new-images/2884.jpg";
+import moment3172 from "@/assets/new-images/3172.jpg";
+import moment4326 from "@/assets/new-images/4326.jpg";
+import moment5504 from "@/assets/new-images/5504.jpg";
+import moment5804 from "@/assets/new-images/5804.jpg";
+import moment5993 from "@/assets/new-images/5993.jpg";
+import moment6203 from "@/assets/new-images/6203.jpg";
+import moment6422 from "@/assets/new-images/6422.jpg";
 import {
   Handshake, Network, Globe2, Crown, Target, TrendingUp,
   Lightbulb, GraduationCap, Briefcase, Eye, BookOpen, Plane,
@@ -94,6 +103,18 @@ const services = [
   "Business Development Strategy", "Entrepreneurial Coaching", "Corporate Strategy Sessions",
   "Investment Discussions", "International Collaborations", "Thought Leadership Platforms",
   "Global Business Conversations", "Mentorship Sessions", "Strategic Partnerships",
+];
+
+const galleryMoments = [
+  moment632,
+  moment2884,
+  moment3172,
+  moment4326,
+  moment5504,
+  moment5804,
+  moment5993,
+  moment6203,
+  moment6422,
 ];
 
 function Monogram() {
@@ -631,6 +652,40 @@ function Global() {
   );
 }
 
+function MomentsGallery() {
+  return (
+    <section className="relative bg-background py-28 lg:py-36 grain">
+      <div className="mx-auto max-w-7xl px-6 lg:px-12">
+        <div className="mx-auto max-w-3xl text-center">
+          <SectionLabel num="06"><span className="mx-auto">Gallery</span></SectionLabel>
+          <h2 className="font-display text-5xl font-light leading-tight md:text-6xl">
+            Featured <span className="text-gradient-gold italic">Moments</span>
+          </h2>
+          <p className="mt-5 text-muted-foreground">
+            Highlights from strategic engagements, leadership events, and global conversations.
+          </p>
+        </div>
+
+        <div className="mt-14 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {galleryMoments.map((image, idx) => (
+            <div key={image} className="group relative aspect-[4/3] overflow-hidden hairline-border bg-onyx">
+              <img
+                src={image}
+                alt={`Dr. Eddie Mutale gallery moment ${idx + 1}`}
+                className={`h-full w-full object-cover transition-transform duration-700 group-hover:scale-105 ${
+                  image === moment2884 ? "object-[center_28%]" : "object-top"
+                }`}
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-background/50 via-transparent to-transparent" />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Services() {
   const serviceRefs = useRef<Array<HTMLLIElement | null>>([]);
 
@@ -855,6 +910,7 @@ function Home() {
       <Author />
       <Philosophy />
       <Global />
+      <MomentsGallery />
       <Services />
       <Manifesto />
       <CTA />
