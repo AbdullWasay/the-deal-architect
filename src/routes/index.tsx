@@ -158,7 +158,7 @@ function Hero() {
       <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl flex-col justify-center px-6 pb-20 pt-32 lg:px-12">
         <div className="pointer-events-none absolute right-6 top-32 hidden w-[24rem] overflow-hidden hairline-border lg:block">
           <img
-            src={footerPortraitOne}
+            src={portrait}
             alt="Dr. Eddie Mutale at a strategic event"
             className="h-full w-full object-cover"
             loading="lazy"
