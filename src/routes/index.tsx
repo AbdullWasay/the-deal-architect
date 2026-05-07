@@ -9,7 +9,7 @@ import pointing from "@/assets/eddie-pointing.jpg";
 import {
   Handshake, Network, Globe2, Crown, Target, TrendingUp,
   Lightbulb, GraduationCap, Briefcase, Eye, BookOpen, Plane,
-  Linkedin, Instagram, Facebook, Twitter, Mail, MapPin, ArrowRight,
+  Linkedin, Instagram, Facebook, Twitter, Mail, MapPin, ArrowRight, Play,
 } from "lucide-react";
 
 export const Route = createFileRoute("/")({
