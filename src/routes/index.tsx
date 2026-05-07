@@ -1,15 +1,18 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useRef } from "react";
 import heroBg from "@/assets/hero-bg.jpg";
 import worldMap from "@/assets/world-map.jpg";
 import portrait from "@/assets/eddie-portrait.jpg";
 import speaking from "@/assets/eddie-speaking.jpg";
 import event from "@/assets/eddie-event.jpg";
-import radio from "@/assets/eddie-radio.jpg";
 import pointing from "@/assets/eddie-pointing.jpg";
+import footerPortraitOne from "@/assets/1983.jpg";
+import footerPortraitTwo from "@/assets/6641.jpg";
+import showreelVideo from "@/assets/5077.mp4";
 import {
   Handshake, Network, Globe2, Crown, Target, TrendingUp,
   Lightbulb, GraduationCap, Briefcase, Eye, BookOpen, Plane,
-  Linkedin, Instagram, Facebook, Twitter, Mail, MapPin, ArrowRight, Play,
+  Linkedin, Instagram, Facebook, Twitter, Mail, MapPin, ArrowRight,
 } from "lucide-react";
 
 export const Route = createFileRoute("/")({
@@ -52,6 +55,38 @@ const knownFor = [
   { icon: Eye, label: "Visionary Thinking" },
   { icon: BookOpen, label: "Thought Leadership" },
   { icon: Plane, label: "International Networking" },
+];
+
+const knownForRows = [
+  knownFor.slice(0, 3),
+  knownFor.slice(3, 6),
+  knownFor.slice(6, 9),
+  knownFor.slice(9, 12),
+];
+
+const philosophyCards = [
+  { n: "01", title: "Psychology", desc: "Reading rooms before words are spoken." },
+  { n: "02", title: "Leverage", desc: "Knowing where the real power sits." },
+  { n: "03", title: "Timing", desc: "Acting precisely when momentum aligns." },
+  { n: "04", title: "Communication", desc: "Strategic clarity. Executive precision." },
+  { n: "05", title: "Confidence", desc: "Earned through repetition and mastery." },
+  { n: "06", title: "Execution", desc: "Where vision becomes signed reality." },
+];
+
+const globalNodes = [
+  { city: "New York", x: 16, y: 38 },
+  { city: "Sao Paulo", x: 23, y: 70 },
+  { city: "London", x: 50, y: 28 },
+  { city: "Lagos", x: 50, y: 52 },
+  { city: "Lusaka", x: 56, y: 64 },
+  { city: "Dubai", x: 62, y: 42 },
+  { city: "Singapore", x: 76, y: 54 },
+  { city: "Hong Kong", x: 79, y: 43 },
+  { city: "Tokyo", x: 86, y: 37 },
+] as const;
+
+const globalConnections: Array<[number, number]> = [
+  [0, 2], [0, 3], [1, 3], [2, 4], [2, 5], [4, 6], [5, 6], [6, 7], [7, 8], [3, 4],
 ];
 
 const services = [
@@ -121,6 +156,16 @@ function Hero() {
       <Nav />
 
       <div className="relative z-10 mx-auto flex min-h-screen max-w-7xl flex-col justify-center px-6 pb-20 pt-32 lg:px-12">
+        <div className="pointer-events-none absolute right-6 top-32 hidden w-[24rem] overflow-hidden hairline-border lg:block">
+          <img
+            src={footerPortraitOne}
+            alt="Dr. Eddie Mutale at a strategic event"
+            className="h-full w-full object-cover"
+            loading="lazy"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-background/10 to-transparent" />
+        </div>
+
         <div className="animate-fade-up">
           <div className="mb-8 flex items-center gap-4">
             <span className="h-px w-16 bg-gold" />
@@ -147,14 +192,14 @@ function Hero() {
             Visionary. Negotiator. Author. Strategist. Builder of Possibilities.
           </p>
           <p className="mt-6 text-sm leading-relaxed text-muted-foreground/90 md:text-base">
-            An internationally minded African businessman known for structuring opportunities,
-            building strategic relationships, inspiring entrepreneurs, and closing transformational
-            deals across global markets.
+            Dr. Eddie Mutale is an internationally minded African businessman, strategist, author,
+            negotiator, and visionary known for structuring opportunities, building strategic
+            relationships, inspiring entrepreneurs, and closing transformational deals across global markets.
           </p>
         </div>
 
         <div className="animate-fade-up delay-500 mt-12 flex flex-col gap-4 sm:flex-row">
-          <a href="#contact" className="group inline-flex items-center justify-center gap-3 bg-gold px-8 py-4 text-xs tracking-luxury uppercase text-primary-foreground transition-all hover:bg-gold-bright shadow-gold">
+          <a href="#contact" className="group inline-flex items-center justify-center gap-3 bg-gold-gradient px-8 py-4 text-xs tracking-luxury uppercase text-primary-foreground transition-all shadow-gold">
             Book a Strategic Session
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </a>
@@ -163,13 +208,15 @@ function Hero() {
           </a>
         </div>
 
-        <div className="animate-fade-in delay-700 mt-20 grid grid-cols-3 gap-8 border-t border-gold/20 pt-8 max-w-2xl">
-          {[["60+", "Nations"], ["∞", "Possibilities"], ["1", "Vision"]].map(([n, l]) => (
-            <div key={l}>
-              <div className="font-display text-3xl text-gold md:text-4xl">{n}</div>
-              <div className="mt-1 text-[10px] tracking-luxury uppercase text-muted-foreground">{l}</div>
-            </div>
-          ))}
+        <div className="animate-fade-in delay-700 mt-20 w-full border-t border-gold/20 pt-8">
+          <div className="grid w-full grid-cols-2 gap-px bg-gold/15 md:grid-cols-4">
+            {[["60+", "Nations"], ["∞", "Possibilities"], ["1", "Vision"], ["0", "Limits"]].map(([n, l]) => (
+              <div key={l} className="bg-background px-6 py-7 text-center">
+                <div className="font-display text-4xl text-gold md:text-5xl">{n}</div>
+                <div className="mt-2 text-[10px] tracking-luxury uppercase text-muted-foreground">{l}</div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
@@ -204,8 +251,10 @@ function PortraitBand() {
         </div>
 
         <div className="absolute bottom-8 right-8 hidden lg:block">
-          <div className="glass-dark px-6 py-4 max-w-sm">
-            <p className="font-display text-base italic text-gold">"Opportunities do not change lives. Executed strategies do."</p>
+          <div className="glass-dark max-w-2xl px-8 py-6">
+            <p className="font-display text-2xl italic leading-snug text-gold md:text-3xl">
+              "Opportunities do not change lives. Executed strategies do."
+            </p>
           </div>
         </div>
       </div>
@@ -296,18 +345,20 @@ function Showreel() {
       </div>
 
       <div className="relative mt-16 w-full px-6 lg:px-12">
-        <div className="relative mx-auto aspect-video w-full max-w-7xl overflow-hidden hairline-border">
-          <img src={event} alt="Dr. Eddie Mutale showreel" className="h-full w-full object-cover animate-ken-burns" />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-background/40" />
-          <div className="absolute inset-0 bg-radial-gold opacity-30" />
-
-          <button type="button" aria-label="Play showreel" className="group absolute inset-0 flex items-center justify-center">
-            <span className="absolute h-32 w-32 rounded-full border border-gold/40 animate-pulse-glow" />
-            <span className="absolute h-44 w-44 rounded-full border border-gold/20" />
-            <span className="relative flex h-20 w-20 items-center justify-center rounded-full bg-gold text-primary-foreground shadow-gold transition-transform duration-500 group-hover:scale-110">
-              <Play className="h-7 w-7 fill-current" strokeWidth={0} />
-            </span>
-          </button>
+        <div className="relative mx-auto aspect-video w-full max-w-7xl overflow-hidden bg-black hairline-border">
+          <video
+            src={showreelVideo}
+            className="h-full w-full object-contain"
+            controls
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            poster={event}
+          />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/70 via-background/20 to-background/30" />
+          <div className="pointer-events-none absolute inset-0 bg-radial-gold opacity-20" />
 
           <div className="absolute bottom-6 left-6 right-6 flex items-end justify-between">
             <div>
@@ -315,8 +366,8 @@ function Showreel() {
               <div className="mt-2 font-display text-xl italic text-foreground md:text-3xl">Moments. Movements. Mastery.</div>
             </div>
             <div className="hidden md:block text-right">
-              <div className="font-mono text-xs text-gold/70">04:32</div>
-              <div className="text-[10px] tracking-luxury uppercase text-muted-foreground">Runtime</div>
+              <div className="font-mono text-xs text-gold/70">Live Reel</div>
+              <div className="text-[10px] tracking-luxury uppercase text-muted-foreground">Now Playing</div>
             </div>
           </div>
         </div>
@@ -326,6 +377,28 @@ function Showreel() {
 }
 
 function Expertise() {
+  const rowRefs = useRef<Array<HTMLDivElement | null>>([]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("expertise-row-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.2, rootMargin: "0px 0px -10% 0px" }
+    );
+
+    rowRefs.current.forEach((row) => {
+      if (row) observer.observe(row);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section id="expertise" className="relative py-32 lg:py-48 grain">
       <div className="mx-auto max-w-7xl px-6 lg:px-12">
@@ -339,12 +412,23 @@ function Expertise() {
           </p>
         </div>
 
-        <div className="mt-20 grid gap-px bg-gold/15 sm:grid-cols-2 lg:grid-cols-3">
-          {knownFor.map(({ icon: Icon, label }) => (
-            <div key={label} className="group bg-background p-10 transition-all duration-500 hover:bg-card">
-              <Icon className="h-8 w-8 text-gold transition-transform duration-500 group-hover:scale-110" strokeWidth={1} />
-              <div className="mt-6 font-display text-2xl text-foreground">{label}</div>
-              <div className="mt-3 h-px w-8 bg-gold transition-all duration-500 group-hover:w-16" />
+        <div className="mt-20 space-y-px">
+          {knownForRows.map((row, rowIndex) => (
+            <div
+              key={`row-${rowIndex}`}
+              ref={(el) => {
+                rowRefs.current[rowIndex] = el;
+              }}
+              className="expertise-row grid gap-px bg-gold/15 sm:grid-cols-2 lg:grid-cols-3"
+              style={{ transitionDelay: `${rowIndex * 0.16}s` }}
+            >
+              {row.map(({ icon: Icon, label }) => (
+                <div key={label} className="group bg-background p-10 transition-all duration-500 hover:bg-card">
+                  <Icon className="h-8 w-8 text-gold transition-transform duration-500 group-hover:scale-110" strokeWidth={1} />
+                  <div className="mt-6 font-display text-2xl text-foreground">{label}</div>
+                  <div className="mt-3 h-px w-8 bg-gold transition-all duration-500 group-hover:w-16" />
+                </div>
+              ))}
             </div>
           ))}
         </div>
@@ -380,13 +464,6 @@ function Author() {
               </p>
             </div>
 
-            <div className="mt-10 flex flex-wrap gap-3">
-              {["Entrepreneurship", "Leadership", "Strategy", "Wealth Creation", "Execution"].map((t) => (
-                <span key={t} className="border border-gold/30 px-4 py-2 text-[10px] tracking-luxury uppercase text-gold">
-                  {t}
-                </span>
-              ))}
-            </div>
           </div>
 
           <div className="relative">
@@ -409,41 +486,56 @@ function Author() {
   );
 }
 
-const dealPillars = [
-  { n: "01", title: "Psychology", desc: "Reading rooms before words are spoken." },
-  { n: "02", title: "Leverage", desc: "Knowing where the real power sits." },
-  { n: "03", title: "Timing", desc: "Acting precisely when momentum aligns." },
-  { n: "04", title: "Communication", desc: "Strategic clarity. Executive precision." },
-  { n: "05", title: "Confidence", desc: "Earned through repetition and mastery." },
-  { n: "06", title: "Execution", desc: "Where vision becomes signed reality." },
-];
-
 function Philosophy() {
   return (
     <section className="relative overflow-hidden py-32 lg:py-48 grain">
-      <div className="absolute inset-0 bg-radial-gold opacity-40" />
+      <div className="absolute inset-0 bg-radial-gold opacity-30" />
       <div className="relative mx-auto max-w-7xl px-6 lg:px-12">
         <div className="mx-auto max-w-4xl text-center">
           <SectionLabel num="04"><span className="mx-auto">The Philosophy</span></SectionLabel>
-          <div className="mx-auto mb-10 h-px w-24 bg-gradient-to-r from-transparent via-gold to-transparent" />
-          <p className="text-[11px] tracking-luxury uppercase text-gold">Closing Deals Is Not Luck</p>
-          <h2 className="mt-10 font-display text-4xl font-light leading-tight md:text-6xl lg:text-7xl">
-            The Six Pillars of <span className="text-gradient-gold italic">The Deal Closer</span>
+          <h2 className="mt-8 font-display text-5xl font-light leading-tight md:text-7xl">
+            The Deal Closer <span className="text-gradient-gold italic">Philosophy</span>
           </h2>
+          <p className="mt-10 font-display text-3xl italic leading-snug text-foreground/90 md:text-5xl">
+            Most people do not fail because opportunities do not exist.
+          </p>
+          <div className="mx-auto mt-14 h-px w-32 bg-gradient-to-r from-transparent via-gold/70 to-transparent" />
+          <p className="mt-10 text-[11px] tracking-luxury uppercase text-gold">They fail because</p>
+          <div className="mt-10 grid gap-x-16 gap-y-5 text-left sm:grid-cols-2">
+            {[
+              "They cannot position properly",
+              "They cannot negotiate effectively",
+              "They cannot structure opportunities",
+              "They cannot build the right relationships",
+              "They cannot execute consistently",
+              "They lack strategic patience",
+            ].map((item) => (
+              <p key={item} className="flex items-start gap-3 text-base leading-relaxed text-muted-foreground md:text-xl">
+                <span className="mt-4 h-1.5 w-1.5 shrink-0 rounded-full bg-gold/70" />
+                <span>{item}</span>
+              </p>
+            ))}
+          </div>
         </div>
 
-        <div className="mt-20 grid gap-px bg-gold/15 border border-gold/15 sm:grid-cols-2 lg:grid-cols-3">
-          {dealPillars.map(({ n, title, desc }) => (
-            <div key={n} className="group relative bg-background p-10 lg:p-14 transition-all duration-500 hover:bg-card">
-              <span className="font-mono text-xs tracking-luxury text-gold/60">{n}</span>
-              <h3 className="mt-8 font-display text-4xl italic text-gradient-gold md:text-5xl">{title}</h3>
-              <div className="mt-4 h-px w-12 bg-gold/60 transition-all duration-500 group-hover:w-24" />
-              <p className="mt-6 text-base leading-relaxed text-muted-foreground">{desc}</p>
+        <div className="mx-auto mt-16 h-px w-40 bg-gradient-to-r from-transparent via-gold/70 to-transparent" />
+        <p className="mt-10 text-center text-[11px] tracking-luxury uppercase text-gold">Closing Deals Is Not Luck</p>
+        <div className="mx-auto mt-10 grid max-w-6xl gap-px border border-gold/15 bg-gold/15 sm:grid-cols-2 lg:grid-cols-3">
+          {philosophyCards.map(({ n, title, desc }) => (
+            <div
+              key={n}
+              className="group bg-background px-6 py-7 transition-all duration-500 hover:bg-card hover:shadow-[0_0_45px_rgba(212,175,55,0.18)] md:px-7 md:py-8"
+            >
+              <span className="font-mono text-[11px] tracking-luxury text-gold/60">{n}</span>
+              <h3 className="mt-4 pb-1 font-display text-[2rem] italic leading-[1.08] text-gradient-gold drop-shadow-[0_0_10px_rgba(212,175,55,0.25)] transition-all duration-500 group-hover:drop-shadow-[0_0_16px_rgba(212,175,55,0.45)] md:text-[2.3rem]">
+                {title}
+              </h3>
+              <div className="mt-3 h-px w-12 bg-gold/60" />
+              <p className="mt-4 max-w-[17rem] text-sm leading-relaxed text-muted-foreground md:text-base">{desc}</p>
             </div>
           ))}
-        </div>
-
-        <div className="mt-20 text-center">
+          </div>
+        <div className="mt-14 text-center">
           <p className="font-display text-3xl font-light text-foreground md:text-5xl">
             This philosophy defines <span className="text-gradient-gold italic">Dr. Eddie Mutale.</span>
           </p>
@@ -456,11 +548,6 @@ function Philosophy() {
 function Global() {
   return (
     <section id="global" className="relative overflow-hidden bg-onyx py-32 lg:py-48">
-      <div className="absolute inset-0 opacity-50">
-        <img src={worldMap} alt="" className="h-full w-full object-cover" loading="lazy" />
-      </div>
-      <div className="absolute inset-0 bg-gradient-to-b from-onyx via-onyx/40 to-onyx" />
-
       <div className="relative mx-auto max-w-7xl px-6 lg:px-12">
         <div className="mx-auto max-w-3xl text-center">
           <SectionLabel num="05"><span className="mx-auto">Global Reach</span></SectionLabel>
@@ -485,16 +572,58 @@ function Global() {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 gap-px bg-gold/15">
-            {[
-              ["60+", "Nations"], ["6", "Continents"],
-              ["∞", "Connections"], ["1", "Vision"],
-            ].map(([n, l]) => (
-              <div key={l} className="bg-onyx p-10 text-center">
-                <div className="font-display text-5xl text-gradient-gold md:text-6xl">{n}</div>
-                <div className="mt-3 text-[10px] tracking-luxury uppercase text-muted-foreground">{l}</div>
+          <div className="relative aspect-[16/10] overflow-hidden bg-black/70">
+            <img src={worldMap} alt="Global strategic network map" className="world-map-pan h-full w-full object-cover opacity-35" loading="lazy" />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-black/45 to-black/70" />
+            <div className="absolute inset-0 bg-radial-gold opacity-35" />
+
+            <svg className="absolute inset-0 h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+              {globalConnections.map(([a, b], idx) => {
+                const from = globalNodes[a];
+                const to = globalNodes[b];
+                return (
+                  <line
+                    key={`${a}-${b}`}
+                    x1={from.x}
+                    y1={from.y}
+                    x2={to.x}
+                    y2={to.y}
+                    className="world-map-line"
+                    style={{ animationDelay: `${idx * 0.18}s` }}
+                  />
+                );
+              })}
+            </svg>
+
+            {globalNodes.map((node, idx) => (
+              <div
+                key={node.city}
+                className="world-map-node"
+                style={{ left: `${node.x}%`, top: `${node.y}%`, animationDelay: `${idx * 0.2}s` }}
+              >
+                <span className="world-map-dot" />
+                <span className="world-map-label">{node.city}</span>
               </div>
             ))}
+          </div>
+        </div>
+
+        <div className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-2">
+          <div className="relative aspect-[16/10] overflow-hidden rounded-sm">
+            <img
+              src={footerPortraitOne}
+              alt="Dr. Eddie Mutale networking event"
+              className="h-full w-full object-cover object-center"
+              loading="lazy"
+            />
+          </div>
+          <div className="relative aspect-[16/10] overflow-hidden rounded-sm">
+            <img
+              src={footerPortraitTwo}
+              alt="Dr. Eddie Mutale strategic conversation"
+              className="h-full w-full object-cover object-center"
+              loading="lazy"
+            />
           </div>
         </div>
       </div>
@@ -503,33 +632,63 @@ function Global() {
 }
 
 function Services() {
+  const serviceRefs = useRef<Array<HTMLLIElement | null>>([]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("service-item-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.2, rootMargin: "0px 0px -8% 0px" }
+    );
+
+    serviceRefs.current.forEach((item) => {
+      if (item) observer.observe(item);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section className="relative py-32 lg:py-48">
       <div className="mx-auto max-w-7xl px-6 lg:px-12">
-        <div className="grid gap-16 lg:grid-cols-12">
-          <div className="lg:col-span-5">
-            <SectionLabel num="06">Engage</SectionLabel>
-            <h2 className="font-display text-5xl font-light leading-tight md:text-6xl">
-              Speaking, Consulting <span className="text-gradient-gold italic">& Collaborations</span>
-            </h2>
-            <p className="mt-8 text-muted-foreground md:text-lg">
-              Available for select strategic engagements where vision meets execution.
-            </p>
-            <div className="mt-10 relative aspect-[4/3] overflow-hidden">
-              <img src={event} alt="" className="h-full w-full object-cover" loading="lazy" />
-              <div className="absolute inset-0 bg-gradient-to-t from-background/70 to-transparent" />
+        <div className="grid items-start gap-16 lg:grid-cols-12">
+          <div className="lg:col-span-5 lg:sticky lg:top-24 lg:self-start">
+            <div>
+              <SectionLabel num="06">Engage</SectionLabel>
+              <h2 className="font-display text-5xl font-light leading-tight md:text-6xl">
+                Speaking, Consulting <span className="text-gradient-gold italic">& Collaborations</span>
+              </h2>
+              <p className="mt-8 text-muted-foreground md:text-lg">
+                Available for select strategic engagements where vision meets execution.
+              </p>
+              <div className="mt-10 relative aspect-[4/3] overflow-hidden">
+                <img src={event} alt="" className="h-full w-full object-cover" loading="lazy" />
+                <div className="absolute inset-0 bg-gradient-to-t from-background/70 to-transparent" />
+              </div>
             </div>
           </div>
 
           <div className="lg:col-span-7">
-            <ul className="divide-y divide-gold/15 border-y border-gold/15">
+            <ul className="relative divide-y divide-gold/15 border-y border-gold/15">
               {services.map((s, i) => (
-                <li key={s} className="group flex items-center justify-between py-6 transition-all hover:pl-4">
+                <li
+                  key={s}
+                  ref={(el) => {
+                    serviceRefs.current[i] = el;
+                  }}
+                  className="service-item group flex items-center bg-background py-6 transition-all hover:pl-4 lg:sticky lg:top-28"
+                  style={{ transitionDelay: `${i * 0.06}s`, zIndex: i + 1 }}
+                >
                   <div className="flex items-center gap-6">
                     <span className="font-mono text-xs text-gold/50">{String(i + 1).padStart(2, "0")}</span>
                     <span className="font-display text-2xl text-foreground transition-colors group-hover:text-gold md:text-3xl">{s}</span>
                   </div>
-                  <ArrowRight className="h-4 w-4 text-gold/40 transition-all group-hover:text-gold group-hover:translate-x-2" />
                 </li>
               ))}
             </ul>
@@ -542,27 +701,22 @@ function Services() {
 
 function Manifesto() {
   return (
-    <section className="relative overflow-hidden py-32 lg:py-48 grain">
+    <section className="relative overflow-hidden py-20 lg:py-32 grain">
       <div className="absolute inset-0">
         <img src={pointing} alt="" className="h-full w-full object-cover opacity-15" loading="lazy" />
       </div>
       <div className="absolute inset-0 bg-gradient-to-b from-background via-background/85 to-background" />
 
-      <div className="relative mx-auto max-w-5xl px-6 text-center lg:px-12">
-        <SectionLabel num="07"><span className="mx-auto">Manifesto</span></SectionLabel>
-
-        <blockquote className="mt-8">
-          <span className="font-display text-7xl text-gold/40 leading-none">"</span>
-          <p className="font-display text-3xl font-light italic leading-snug text-foreground md:text-5xl lg:text-6xl">
-            I believe Africa does not lack intelligence or opportunity.
-          </p>
-          <p className="mt-8 font-display text-3xl font-light italic leading-snug text-gradient-gold md:text-5xl lg:text-6xl">
-            What we lack is bold execution, strategic thinking, strong positioning, and leaders
-            willing to think globally.
+      <div className="relative mx-auto max-w-7xl px-6 text-center lg:px-12">
+        <blockquote className="mx-auto mt-0 max-w-6xl">
+          <span className="font-display text-6xl text-gold/60 leading-none">"</span>
+          <p className="mt-2 font-display text-[1.7rem] font-light italic leading-[1.22] text-foreground md:text-[2.3rem] lg:text-[2.55rem]">
+            I believe Africa does not lack intelligence or opportunity. What we lack is bold execution, strategic thinking, strong positioning, and leaders willing to{" "}
+            <span className="text-gradient-gold">think globally.</span>
           </p>
         </blockquote>
 
-        <div className="mt-12 flex items-center justify-center gap-4">
+        <div className="mt-10 flex items-center justify-center gap-4">
           <span className="h-px w-16 bg-gold" />
           <span className="text-[10px] tracking-luxury uppercase text-gold">Dr. Eddie Mutale</span>
           <span className="h-px w-16 bg-gold" />
@@ -594,7 +748,7 @@ function CTA() {
           ))}
         </div>
 
-        <a href="#contact" className="mt-14 inline-flex items-center gap-3 bg-gold px-12 py-5 text-xs tracking-luxury uppercase text-primary-foreground transition-all hover:bg-gold-bright shadow-gold">
+        <a href="#contact" className="mt-14 inline-flex items-center gap-3 bg-gold-gradient px-12 py-5 text-xs tracking-luxury uppercase text-primary-foreground transition-all shadow-gold">
           Let's Connect <ArrowRight className="h-4 w-4" />
         </a>
       </div>
@@ -610,64 +764,80 @@ function Contact() {
     { Icon: Twitter, href: "#", label: "X (Twitter)" },
   ];
   return (
-    <footer id="contact" className="relative bg-onyx py-24 lg:py-32 border-t border-gold/20">
+    <footer id="contact" className="relative overflow-hidden border-t border-gold/20 bg-onyx py-24 lg:py-32">
+      <div className="absolute inset-0 opacity-20">
+        <img src={footerPortraitTwo} alt="" className="h-full w-full object-cover" loading="lazy" />
+      </div>
+      <div className="absolute inset-0 bg-gradient-to-b from-onyx/95 via-onyx/90 to-onyx" />
+
       <div className="mx-auto max-w-7xl px-6 lg:px-12">
-        <div className="grid gap-16 lg:grid-cols-12">
-          <div className="lg:col-span-6">
+        <div className="relative">
+          <div className="mx-auto max-w-4xl text-center">
             <div className="text-[10px] tracking-luxury uppercase text-gold">Contact</div>
-            <h3 className="mt-4 font-display text-4xl font-light leading-tight md:text-6xl">
-              Dr. Eddie<br /><span className="text-gradient-gold italic">Mutale</span>
+            <h3 className="mt-6 font-display text-5xl font-light leading-tight md:text-7xl">
+              Let’s Close the <span className="text-gradient-gold italic">Next Big Deal.</span>
             </h3>
-            <p className="mt-3 font-display text-xl italic text-gold/80">The Deal Closer</p>
-
-            <div className="mt-10 space-y-4 text-sm text-muted-foreground">
-              <a href="mailto:info@dreddiemutale.com" className="flex items-center gap-3 hover:text-gold transition-colors">
-                <Mail className="h-4 w-4 text-gold" strokeWidth={1.5} />
-                info@dreddiemutale.com
-              </a>
-              <div className="flex items-center gap-3">
-                <MapPin className="h-4 w-4 text-gold" strokeWidth={1.5} />
-                Lusaka, Zambia
-              </div>
-              <a href="https://www.dreddiemutale.com" className="flex items-center gap-3 hover:text-gold transition-colors">
-                <Globe2 className="h-4 w-4 text-gold" strokeWidth={1.5} />
-                www.dreddiemutale.com
-              </a>
-            </div>
-
-            <div className="mt-10 flex gap-3">
-              {socials.map(({ Icon, href, label }) => (
-                <a key={label} href={href} aria-label={label}
-                   className="flex h-12 w-12 items-center justify-center border border-gold/40 text-gold transition-all hover:bg-gold hover:text-primary-foreground">
-                  <Icon className="h-4 w-4" strokeWidth={1.5} />
-                </a>
-              ))}
-            </div>
+            <p className="mx-auto mt-6 max-w-3xl text-base leading-relaxed text-muted-foreground md:text-lg">
+              For strategic advisory, executive consulting, leadership engagements, or high-level collaborations,
+              begin with a direct conversation.
+            </p>
           </div>
 
-          <div className="lg:col-span-6">
-            <div className="hairline-border p-8 lg:p-10">
-              <div className="text-[10px] tracking-luxury uppercase text-gold">Strategic Inquiries</div>
-              <p className="mt-4 font-display text-2xl text-foreground italic">
-                Begin a conversation that creates leverage, structures opportunity, and closes the deal.
-              </p>
-              <a href="mailto:info@dreddiemutale.com"
-                 className="mt-8 inline-flex items-center gap-3 border border-gold px-8 py-4 text-xs tracking-luxury uppercase text-gold transition-all hover:bg-gold hover:text-primary-foreground">
-                Send a Message <ArrowRight className="h-4 w-4" />
-              </a>
+          <div className="mt-14 grid gap-6 lg:grid-cols-3">
+            <a
+              href="mailto:info@dreddiemutale.com"
+              className="group hairline-border bg-background/50 p-7 transition-all hover:bg-card/80"
+            >
+              <Mail className="h-5 w-5 text-gold" strokeWidth={1.6} />
+              <p className="mt-5 text-[10px] tracking-luxury uppercase text-gold">Email</p>
+              <p className="mt-2 text-base text-foreground transition-colors group-hover:text-gold">info@dreddiemutale.com</p>
+            </a>
+
+            <div className="hairline-border bg-background/50 p-7">
+              <MapPin className="h-5 w-5 text-gold" strokeWidth={1.6} />
+              <p className="mt-5 text-[10px] tracking-luxury uppercase text-gold">Location</p>
+              <p className="mt-2 text-base text-foreground">Lusaka, Zambia</p>
             </div>
 
-            <div className="mt-8 relative aspect-video overflow-hidden">
-              <img src={radio} alt="" className="h-full w-full object-cover opacity-70" loading="lazy" />
-            </div>
+            <a
+              href="https://www.dreddiemutale.com"
+              className="group hairline-border bg-background/50 p-7 transition-all hover:bg-card/80"
+            >
+              <Globe2 className="h-5 w-5 text-gold" strokeWidth={1.6} />
+              <p className="mt-5 text-[10px] tracking-luxury uppercase text-gold">Website</p>
+              <p className="mt-2 text-base text-foreground transition-colors group-hover:text-gold">www.dreddiemutale.com</p>
+            </a>
           </div>
-        </div>
 
-        <div className="mt-20 flex flex-col items-center justify-between gap-4 border-t border-gold/15 pt-8 md:flex-row">
-          <Monogram />
-          <p className="text-[10px] tracking-luxury uppercase text-muted-foreground">
-            © {new Date().getFullYear()} Dr. Eddie Mutale · All Rights Reserved
-          </p>
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
+            {socials.map(({ Icon, href, label }) => (
+              <a
+                key={label}
+                href={href}
+                aria-label={label}
+                className="flex h-12 w-12 items-center justify-center border border-gold/40 text-gold transition-all hover:bg-gold hover:text-primary-foreground"
+              >
+                <Icon className="h-4 w-4" strokeWidth={1.5} />
+              </a>
+            ))}
+          </div>
+
+          <div className="mt-12 text-center">
+            <a
+              href="mailto:info@dreddiemutale.com"
+              className="inline-flex items-center gap-3 bg-gold-gradient px-10 py-4 text-xs tracking-luxury uppercase text-primary-foreground transition-all shadow-gold"
+            >
+              Start a Strategic Conversation
+              <ArrowRight className="h-4 w-4" />
+            </a>
+          </div>
+
+          <div className="mt-20 flex flex-col items-center justify-between gap-4 border-t border-gold/15 pt-8 md:flex-row">
+            <Monogram />
+            <p className="text-[10px] tracking-luxury uppercase text-muted-foreground">
+              © {new Date().getFullYear()} Dr. Eddie Mutale · All Rights Reserved
+            </p>
+          </div>
         </div>
       </div>
     </footer>
@@ -678,8 +848,8 @@ function Home() {
   return (
     <main className="bg-background text-foreground">
       <Hero />
-      <PortraitBand />
       <About />
+      <PortraitBand />
       <Expertise />
       <Showreel />
       <Author />
